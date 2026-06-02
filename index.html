@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Алёна — Расстановки и Коучинг</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #f7f3ee;
+  --bg2: #efe9e0;
+  --warm: #c9a87c;
+  --gold: #b8935a;
+  --deep: #3d2e1e;
+  --mid: #7a6350;
+  --soft: #9e8a75;
+  --light: #f0e8dc;
+  --red: #8b3a3a;
+}
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--deep);
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Paper texture background */
+.bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 100% 80% at 50% 0%, #ede3d5 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 0% 100%, #e8ddd0 0%, transparent 50%),
+    radial-gradient(ellipse 50% 40% at 100% 80%, #f0e8de 0%, transparent 50%),
+    var(--bg);
+}
+
+/* Decorative geometric lines */
+.geo {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Constellation dots */
+.constellation {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.dot {
+  position: absolute;
+  background: var(--gold);
+  border-radius: 50%;
+  animation: pulse var(--pd, 4s) ease-in-out infinite alternate;
+  opacity: var(--po, 0.4);
+}
+
+@keyframes pulse {
+  from { opacity: var(--po, 0.3); transform: scale(1); }
+  to   { opacity: calc(var(--po, 0.3) * 1.8); transform: scale(1.6); }
+}
+
+/* Main content */
+.content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding: 2.5rem 2rem;
+  max-width: 600px;
+  animation: appear 1.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Symbol */
+.symbol {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 2.5rem;
+  animation: appear 1.4s 0.1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.symbol svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Name */
+.name {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(3rem, 10vw, 6rem);
+  line-height: 0.9;
+  letter-spacing: 0.04em;
+  color: var(--deep);
+  margin-bottom: 0.2em;
+  animation: appear 1.4s 0.15s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.subtitle-role {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+  color: var(--gold);
+  letter-spacing: 0.06em;
+  margin-bottom: 2.5rem;
+  animation: appear 1.4s 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Ornament */
+.ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+  animation: appear 1.4s 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.ornament-line {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--warm));
+}
+
+.ornament-line.r {
+  background: linear-gradient(90deg, var(--warm), transparent);
+}
+
+.ornament-diamond {
+  width: 6px;
+  height: 6px;
+  background: var(--gold);
+  transform: rotate(45deg);
+}
+
+/* Services chips */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+  animation: appear 1.4s 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.chip {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mid);
+  border: 1px solid rgba(184, 147, 90, 0.3);
+  padding: 0.4em 1em;
+  border-radius: 2em;
+  background: rgba(201, 168, 124, 0.06);
+}
+
+/* Coming soon */
+.coming {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.3rem, 4vw, 1.8rem);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--deep);
+  margin-bottom: 0.8rem;
+  animation: appear 1.4s 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.desc {
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: var(--soft);
+  line-height: 1.8;
+  animation: appear 1.4s 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Bottom domain */
+.domain {
+  position: fixed;
+  bottom: 1.8rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: rgba(122, 99, 80, 0.3);
+  z-index: 10;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+
+/* Corner ornaments */
+.corner {
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  opacity: 0.12;
+  z-index: 3;
+}
+.corner.tl { top: 2rem; left: 2rem; border-top: 1px solid var(--gold); border-left: 1px solid var(--gold); }
+.corner.tr { top: 2rem; right: 2rem; border-top: 1px solid var(--gold); border-right: 1px solid var(--gold); }
+.corner.bl { bottom: 2rem; left: 2rem; border-bottom: 1px solid var(--gold); border-left: 1px solid var(--gold); }
+.corner.br { bottom: 2rem; right: 2rem; border-bottom: 1px solid var(--gold); border-right: 1px solid var(--gold); }
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+
+<!-- Corner decorations -->
+<div class="corner tl"></div>
+<div class="corner tr"></div>
+<div class="corner bl"></div>
+<div class="corner br"></div>
+
+<!-- Constellation dots -->
+<div class="constellation" id="constellation"></div>
+
+<!-- Geometric SVG lines -->
+<svg class="geo" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+  <line x1="0" y1="15" x2="25" y2="15" stroke="#b8935a" stroke-width="0.05" opacity="0.2"/>
+  <line x1="75" y1="15" x2="100" y2="15" stroke="#b8935a" stroke-width="0.05" opacity="0.2"/>
+  <line x1="0" y1="85" x2="25" y2="85" stroke="#b8935a" stroke-width="0.05" opacity="0.2"/>
+  <line x1="75" y1="85" x2="100" y2="85" stroke="#b8935a" stroke-width="0.05" opacity="0.2"/>
+  <circle cx="50" cy="50" r="40" stroke="#b8935a" stroke-width="0.05" fill="none" opacity="0.08"/>
+  <circle cx="50" cy="50" r="48" stroke="#b8935a" stroke-width="0.03" fill="none" opacity="0.06"/>
+</svg>
+
+<!-- Content -->
+<main class="content">
+
+  <!-- Helinger symbol — simplified tree of life / constellation -->
+  <div class="symbol">
+    <svg viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="35" cy="35" r="33" stroke="#b8935a" stroke-width="0.8" opacity="0.3"/>
+      <circle cx="35" cy="12" r="3" fill="#b8935a" opacity="0.8"/>
+      <circle cx="35" cy="58" r="3" fill="#b8935a" opacity="0.8"/>
+      <circle cx="12" cy="35" r="3" fill="#b8935a" opacity="0.8"/>
+      <circle cx="58" cy="35" r="3" fill="#b8935a" opacity="0.8"/>
+      <circle cx="19" cy="19" r="2" fill="#c9a87c" opacity="0.6"/>
+      <circle cx="51" cy="19" r="2" fill="#c9a87c" opacity="0.6"/>
+      <circle cx="19" cy="51" r="2" fill="#c9a87c" opacity="0.6"/>
+      <circle cx="51" cy="51" r="2" fill="#c9a87c" opacity="0.6"/>
+      <circle cx="35" cy="35" r="4" fill="#b8935a"/>
+      <line x1="35" y1="15" x2="35" y2="55" stroke="#b8935a" stroke-width="0.5" opacity="0.25"/>
+      <line x1="15" y1="35" x2="55" y2="35" stroke="#b8935a" stroke-width="0.5" opacity="0.25"/>
+      <line x1="21" y1="21" x2="49" y2="49" stroke="#b8935a" stroke-width="0.5" opacity="0.15"/>
+      <line x1="49" y1="21" x2="21" y2="49" stroke="#b8935a" stroke-width="0.5" opacity="0.15"/>
+    </svg>
+  </div>
+
+  <h1 class="name">Алёна</h1>
+
+  <p class="subtitle-role">Расстановки · Коучинг</p>
+
+  <div class="ornament">
+    <div class="ornament-line"></div>
+    <div class="ornament-diamond"></div>
+    <div class="ornament-line r"></div>
+  </div>
+
+  <div class="chips">
+    <span class="chip">Семейные расстановки</span>
+    <span class="chip">Бизнес расстановки</span>
+    <span class="chip">По Хеллингеру</span>
+    <span class="chip">Коучинг</span>
+  </div>
+
+  <p class="coming">Скоро открытие</p>
+
+  <p class="desc">Сайт находится в разработке.<br>Скоро здесь появится больше информации.</p>
+
+</main>
+
+<div class="domain">alena.psymarine.com</div>
+
+<script>
+// Constellation dots scattered around edges
+const con = document.getElementById('constellation');
+const positions = [
+  [8,10],[15,25],[5,45],[12,65],[8,80],
+  [88,8],[92,30],[85,55],[90,75],[87,88],
+  [25,5],[45,8],[65,6],[80,10],
+  [20,92],[40,95],[60,93],[78,90],
+];
+positions.forEach(([left, top]) => {
+  const d = document.createElement('div');
+  d.className = 'dot';
+  const size = Math.random() * 3 + 2;
+  d.style.cssText = `
+    width:${size}px; height:${size}px;
+    top:${top}%;
+    left:${left}%;
+    --pd:${3 + Math.random()*4}s;
+    --po:${0.15 + Math.random()*0.3};
+    animation-delay:${Math.random()*4}s;
+  `;
+  con.appendChild(d);
+});
+</script>
+</body>
+</html>
